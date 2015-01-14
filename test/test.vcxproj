@@ -13,6 +13,10 @@
   <ItemGroup>
     <ClCompile Include="test.cpp" />
   </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="colorhistogram.h" />
+    <ClInclude Include="imageComparator.h" />
+  </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{C4A92AD6-601E-4493-8AC7-02DAA74A78FE}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>

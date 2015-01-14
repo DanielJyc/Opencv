@@ -1,6 +1,7 @@
 #include<fstream>
 #include <opencv2/opencv.hpp>  
 #include <opencv2/core/core.hpp>
+#include "imageComparator.h"
 //#include<iomanip>
 using namespace std;
 using namespace cv;
@@ -124,15 +125,93 @@ void getMeanOfLight_Test(Mat &srcImg)
 	imshow("原始图像1", srcImg);
 }
 
+float * get5HistFeatures(Mat srcImg)
+{
+	float featuresHist[5] = { 0 };
+	float range[] = { 0, 256 };
+	const float * histRange = { range };
+	Mat hist;
+	int histSize = 256;
+	calcHist(&srcImg, 1, 0, Mat(), hist, 1, &histSize, &histRange, true, false);
+	//获取5个直方图特征：features：0-50，50-100，100-150，150-200，200-255
+	for (int i = 0; i < 50; i++)
+	{
+		featuresHist[0] += hist.at<float>(i);
+	}
+	for (int i = 50; i < 100; i++)
+	{
+		featuresHist[1] += hist.at<float>(i);
+	}
+	for (int i = 100; i < 150; i++)
+	{
+		featuresHist[2] += hist.at<float>(i);
+	}
+	for (int i = 150; i < 200; i++)
+	{
+		featuresHist[3] += hist.at<float>(i);
+	}
+	for (int i = 200; i < 256; i++)
+	{
+		featuresHist[4] += hist.at<float>(i);
+	}
+	//求取概率
+	for (int i = 0; i < 5; i++)
+	{
+		featuresHist[i] = featuresHist[i] / sum(hist)[0];
+	}
+	return featuresHist;
+}
+
+void getEveryPixel(Mat &srcImg)
+{
+	Mat_<int> srcImg2 = srcImg;
+	int i, j;
+	for (i = 0; i < srcImg.rows; i++)
+	{
+		for (j = 0; j < srcImg.cols; j++)
+		{
+			//Scalar scal = cvGet2D(srcImg, i, j);
+			//printf("(%f,%f,%f) \n", scal.val[0], scal.val[1], scal.val[2]); //黑白一个通道，彩色3通道
+			cout << srcImg2(i, j) << endl;
+		}
+	}
+	//cout << srcImg2(23,4) << endl;
+	//cout << srcImg.size() << endl;
+}
+
 int main(){
 	Mat srcImg = imread("F:\\kuaipan\\Visual Studio\\Projects\\grabFire\\基本操作：黑白化\\p4.jpg");
 	imshow("原始图像0", srcImg);
-	// 	writeFile();
+	// 	writeFile(); //写入文件
 //	findTheConners();
-//	getContoursPixTest();
-//	getMeanOfLight_Test(srcImg);
+//	getContoursPixTest(); //
+//	getMeanOfLight_Test(srcImg); //亮度均值
+	//getEveryPixel(srcImg); //获取每个像素
+	
 
 
+	//1、获取直方图统计特征：5个直方图特征：features：0-50，50-100，100-150，150-200，200-255
+	cvtColor(srcImg, srcImg, CV_BGR2GRAY);
+	float * featuresHist = get5HistFeatures(srcImg);
+	cout << featuresHist[0] << ";" << featuresHist[1] << ";" << featuresHist[2] << ";" << featuresHist[3] << ";" << featuresHist[4] << ";" << endl;
+
+	//2、通过比较直方图检索相似图片(注：两幅图像均为RGB图像)
+	//巴氏系数（Bhattacharyyacoefficient）算法:http://docs.opencv.org/doc/tutorials/imgproc/histograms/histogram_comparison/histogram_comparison.html
+	//值越小越相似(0, 1)，所以结果用1 相减得到这个结果
+	cv::Mat image = cv::imread("../images/waves.jpg");
+	ImageComparator c;
+	c.setReferenceImage(image);
+
+	// Test
+	cv::Mat input = cv::imread("../images/waves2.jpg");
+	cout << input.size() << ":" << input.channels() << endl;
+	cout << "waves vs waves2（由waves截图得到）: " << c.compare(input) << endl;
+	// Read an image and compare it with reference
+	cout << "waves vs waves: " << c.compare(image) << endl;
+	cvtColor(srcImg, srcImg, CV_GRAY2RGB); 
+	cout << "waves vs src: " << c.compare(srcImg) << endl;
+
+	//3、求两幅图像的 变化率fireRate 和 中心位移 
 
 	waitKey();
 	return 0;
