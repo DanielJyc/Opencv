@@ -197,7 +197,7 @@ int main(){
 
 	//2、通过比较直方图检索相似图片(注：两幅图像均为RGB图像)
 	//巴氏系数（Bhattacharyyacoefficient）算法:http://docs.opencv.org/doc/tutorials/imgproc/histograms/histogram_comparison/histogram_comparison.html
-	//值越小越相似(0, 1)，所以结果用1 相减得到这个结果
+	//值越大越相似(0, 1)，（自己处理过）
 	cv::Mat image = cv::imread("../images/waves.jpg");
 	ImageComparator c;
 	c.setReferenceImage(image);
