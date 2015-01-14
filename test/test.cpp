@@ -104,10 +104,34 @@ void getContoursPixTest()
 	getContours(thresholded);
 }
 
+void getMeanOfLight_Test(Mat &srcImg)
+{
+	cvtColor(srcImg, srcImg, CV_RGB2GRAY);
+	cout << srcImg.channels() << endl;
+	cvtColor(srcImg, srcImg, CV_GRAY2RGB);
+	cvtColor(srcImg, srcImg, CV_BGR2HSV);
+	cout << srcImg.channels() << endl;
+
+	vector<Mat> channels;
+	split(srcImg, channels);
+	Scalar m0 = mean(channels[2]);
+	printf("%f\n", m0[0]);
+
+	Scalar m = mean(srcImg);
+	cout << m[0] << endl;
+	cout << m[1] << endl;
+	cout << m[2] << endl;
+	imshow("原始图像1", srcImg);
+}
+
 int main(){
-// 	writeFile();
+	Mat srcImg = imread("F:\\kuaipan\\Visual Studio\\Projects\\grabFire\\基本操作：黑白化\\p4.jpg");
+	imshow("原始图像0", srcImg);
+	// 	writeFile();
 //	findTheConners();
-	getContoursPixTest();
+//	getContoursPixTest();
+//	getMeanOfLight_Test(srcImg);
+
 
 
 	waitKey();
