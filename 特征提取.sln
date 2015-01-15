@@ -11,6 +11,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "纹理特征_test", "纹理
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "获取特征", "获取特征\获取特征.vcxproj", "{BF05FEAB-2DFE-46AF-9FEC-EAA337C81405}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "分类器SVM", "分类器SVM\分类器SVM.vcxproj", "{D030590C-5B64-4610-8F70-25E2BC0EDBF5}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Win32 = Debug|Win32
@@ -33,6 +35,10 @@ Global
 		{BF05FEAB-2DFE-46AF-9FEC-EAA337C81405}.Debug|Win32.Build.0 = Debug|Win32
 		{BF05FEAB-2DFE-46AF-9FEC-EAA337C81405}.Release|Win32.ActiveCfg = Release|Win32
 		{BF05FEAB-2DFE-46AF-9FEC-EAA337C81405}.Release|Win32.Build.0 = Release|Win32
+		{D030590C-5B64-4610-8F70-25E2BC0EDBF5}.Debug|Win32.ActiveCfg = Debug|Win32
+		{D030590C-5B64-4610-8F70-25E2BC0EDBF5}.Debug|Win32.Build.0 = Debug|Win32
+		{D030590C-5B64-4610-8F70-25E2BC0EDBF5}.Release|Win32.ActiveCfg = Release|Win32
+		{D030590C-5B64-4610-8F70-25E2BC0EDBF5}.Release|Win32.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

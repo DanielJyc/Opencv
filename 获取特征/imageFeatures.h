@@ -182,7 +182,6 @@ public:
 		//9、获取直方图统计特征：5个直方图特征：features：0-50，50-100，100-150，150-200，200-255
 		get5HistFeatures(srcImg); //输入灰度图像 ,特征放在featuresHist数组中
 
-		
 		/********************************将特征写入文件，最后再封装为函数****************************************/
 		ofstream ofile;
 		ofile.open("特征记录.csv", ios::app);
@@ -200,10 +199,6 @@ public:
 		cout << featuresHist[0] << ";" << featuresHist[1] << ";" << featuresHist[2] << ";" << featuresHist[3] << ";" << featuresHist[4] << ";" << endl;
 
 	}
-
-
-
-
 
 };
 
