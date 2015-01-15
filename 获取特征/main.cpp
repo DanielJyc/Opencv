@@ -2,6 +2,7 @@
 #include <opencv2/imgproc/imgproc.hpp>
 #include <opencv2/highgui/highgui.hpp>
 #include <opencv2/opencv.hpp>  
+#include "math.h"
 #include "imageContours.h"
 #include "imageFeatures.h"
 
@@ -57,8 +58,10 @@ void simpleProcess(Mat &srcImg, Mat &thresholdedImg)
 int main()
 {
 	Mat thresholdedImg, thresholdedImgPreviousFrame;
-	Mat srcImg = imread("F:\\kuaipan\\Visual Studio\\Projects\\grabFire\\基本操作：黑白化\\p4.jpg");
-	Mat srcImgPreviousFrame = imread("F:\\kuaipan\\Visual Studio\\Projects\\grabFire\\基本操作：黑白化\\group.jpg");
+	Mat srcImg = imread("F:\\kuaipan\\Visual Studio\\Projects\\grabFire\\基本操作：黑白化\\p4.jpg"); //后一帧
+	Mat srcImgPreviousFrame = imread("F:\\kuaipan\\Visual Studio\\Projects\\grabFire\\基本操作：黑白化\\group.jpg"); //前一帧
+	Mat srcImgPreviousFrameInitial; 
+	srcImgPreviousFrame.copyTo(srcImgPreviousFrameInitial); 
 	BGRto2Value(srcImgPreviousFrame);  //针对彩色图像
 	cout << srcImgPreviousFrame.channels() << endl;
 	imshow("srcImgPreviousFrame", srcImgPreviousFrame);
@@ -84,13 +87,15 @@ int main()
 	imshow("biggestContourOnSrcImgPreviousFrame", biggestContourOnSrcImgPreviousFrame);
 	imshow("biggestContourOnWhiteBlackPreviousFrame", biggestContourOnWhiteBlackPreviousFrame);
 	imshow("srcPreviousFrame", srcImgPreviousFrame);
-
-
+	
 	cout << "区域提取完成。" << endl;
 
-	//4.提取特征 ：提取的特征将写入文件中
+
+
+
+	//4.提取特征 ：提取的特征将写入文件中（srcImg）
 	imageFeatures imgFeatures(srcImg);
-	imgFeatures.getFireFeatures(contours, biggestContourOnSrcImg, biggestContourOnWhiteBlack);
+	imgFeatures.getFireFeatures(contours,contoursPreviousFrame, biggestContourOnSrcImg, biggestContourOnWhiteBlack);
 
 	cv::waitKey();
 	return 0;

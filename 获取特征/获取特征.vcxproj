@@ -81,7 +81,9 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="colorhistogram.h" />
     <ClInclude Include="featuresGLCM.h" />
+    <ClInclude Include="imageComparator.h" />
     <ClInclude Include="imageContours.h" />
     <ClInclude Include="imageFeatures.h" />
   </ItemGroup>

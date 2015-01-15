@@ -24,6 +24,12 @@
     <ClInclude Include="imageFeatures.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="colorhistogram.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="imageComparator.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="featuresGLCM.cpp">

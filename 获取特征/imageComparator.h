@@ -64,7 +64,8 @@ class ImageComparator {
 		input= hist.colorReduce(image,div);
 		inputH= hist.getHistogram(input);
 
-		return cv::compareHist(refH,inputH,CV_COMP_INTERSECT);
+		//return cv::compareHist(refH, inputH, CV_COMP_INTERSECT);
+		return 1-cv::compareHist(refH, inputH, CV_COMP_BHATTACHARYYA); //∞Õ œœµ ˝£®Bhattacharyyacoefficient£©À„∑®:http://docs.opencv.org/doc/tutorials/imgproc/histograms/histogram_comparison/histogram_comparison.html
 	}
 };
 
